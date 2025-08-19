@@ -60,7 +60,7 @@ namespace Scoreboard.Test
         }
 
         [Fact]
-        public void FinishMAtch_ExistingMatch_ShouldRemoveMatchFromScoreboard()
+        public void FinishMatch_ExistingMatch_ShouldRemoveMatchFromScoreboard()
         {
             var scoreboard = new Scoreboard();
 
@@ -70,6 +70,17 @@ namespace Scoreboard.Test
             var summary = scoreboard.GetSummary();
 
             Assert.Empty(summary);
+        }
+
+        [Fact]
+        public void FinishMatch_NonExistingMatch_ShouldReturnFalse()
+        {
+            var scoreboard = new Scoreboard();
+
+            scoreboard.StartMatch("Slovenia", "Croatia");
+            var result = scoreboard.FinishMatch("Austria", "Croatia");
+
+            Assert.False(result);
         }
     }
 }
