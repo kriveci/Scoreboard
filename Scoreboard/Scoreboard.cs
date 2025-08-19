@@ -37,7 +37,10 @@ namespace Scoreboard
 
         public List<Match> GetSummary()
         {
-            return _matches;
+            return _matches
+                .OrderByDescending(m => m.TotalScore)
+                .ThenByDescending(m => m.StartTime)
+                .ToList();
         }
 
         private Match FindMatch(string homeTeam, string awayTeam)

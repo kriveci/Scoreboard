@@ -13,6 +13,7 @@ namespace Scoreboard
         public int HomeScore { get; set; }
         public int AwayScore { get; set; }
         public DateTime StartTime { get; set; }
+        public int TotalScore => HomeScore + AwayScore;
 
         public Match(string homeTeam, string awayTeam)
         {

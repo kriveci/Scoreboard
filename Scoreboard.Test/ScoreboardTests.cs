@@ -107,9 +107,9 @@ namespace Scoreboard.Test
 
             Assert.Equal("Uruguay", summary[0].HomeTeam);
             Assert.Equal("Spain", summary[1].HomeTeam);
-            Assert.Equal("Mexico", summary[0].HomeTeam);
-            Assert.Equal("Argentina", summary[0].HomeTeam);
-            Assert.Equal("Germany", summary[0].HomeTeam);
+            Assert.Equal("Mexico", summary[2].HomeTeam);
+            Assert.Equal("Argentina", summary[3].HomeTeam);
+            Assert.Equal("Germany", summary[4].HomeTeam);
         }
     }
 }
