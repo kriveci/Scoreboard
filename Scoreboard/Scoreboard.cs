@@ -6,9 +6,15 @@ namespace Scoreboard
     {
         private List<Match> _matches = new();
 
-        public void StartMatch(string homeTeam, string awayTeam)
+        public bool StartMatch(string homeTeam, string awayTeam)
         {
+            if (IsTeamPlaying(homeTeam) || IsTeamPlaying(awayTeam))
+            {
+                return false;
+            }
+
             _matches.Add(new Match(homeTeam, awayTeam));
+            return true;
         }
 
         public bool FinishMatch(string homeTeam, string awayTeam)
@@ -49,6 +55,12 @@ namespace Scoreboard
                 m.HomeTeam == homeTeam && m.AwayTeam == awayTeam);
 
             return match;
+        }
+
+        private bool IsTeamPlaying(string teamName)
+        {
+            return _matches.Any(m => string.Equals(m.HomeTeam, teamName) ||
+                string.Equals(m.AwayTeam, teamName));
         }
     }
 }
