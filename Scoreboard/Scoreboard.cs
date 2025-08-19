@@ -11,10 +11,16 @@ namespace Scoreboard
             _matches.Add(new Match(homeTeam, awayTeam));
         }
 
-        public void UpdateScore(string homeTeam, string awayTeam, int homeScore, int awayScore)
+        public bool UpdateScore(string homeTeam, string awayTeam, int homeScore, int awayScore)
         {
             var match = FindMatch(homeTeam, awayTeam);
+            if (match == null)
+            {
+                return false;
+            }
+
             match.UpdateScore(homeScore, awayScore);
+            return true;
         }
 
         public List<Match> GetSummary()

@@ -47,5 +47,16 @@ namespace Scoreboard.Test
             Assert.Equal(0, summary[0].HomeScore);
             Assert.Equal(0, summary[0].AwayScore);
         }
+
+        [Fact]
+        public void UpdateScore_NonExistingMatch_ShouldReturnFalse()
+        {
+            var scoreboard = new Scoreboard();
+
+            scoreboard.StartMatch("Slovenia", "Croatia");
+            bool result = scoreboard.UpdateScore("Italy", "Austria", 1, 0);
+                        
+            Assert.False(result);
+        }
     }
 }
