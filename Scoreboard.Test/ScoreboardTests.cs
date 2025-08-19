@@ -3,7 +3,7 @@ namespace Scoreboard.Test
     public class ScoreboardTests
     {
         [Fact]
-        public void StartMatch_AddsMatchWithInitialScore()
+        public void StartMatch_ShouldAddMatchWithInitialScore()
         {
             var scoreBoard = new Scoreboard();
 
@@ -19,7 +19,7 @@ namespace Scoreboard.Test
         }
 
         [Fact]
-        public void UpdateScore_UpdatesMatchScore()
+        public void UpdateScore_ExistingMatch_ShouldUpdateMatchScore()
         {
             var scoreboard = new Scoreboard();
 
@@ -30,6 +30,21 @@ namespace Scoreboard.Test
 
             Assert.Single(summary);
             Assert.Equal(1, summary[0].HomeScore);
+            Assert.Equal(0, summary[0].AwayScore);
+        }
+
+        [Fact]
+        public void UpdateScore_NonExistingMatch_ShouldNotUpdateMatchScore()
+        {
+            var scoreboard = new Scoreboard();
+
+            scoreboard.StartMatch("Slovenia", "Croatia");
+            scoreboard.UpdateScore("Italy", "Austria", 1, 0);
+
+            var summary = scoreboard.GetSummary();
+
+            Assert.Single(summary);
+            Assert.Equal(0, summary[0].HomeScore);
             Assert.Equal(0, summary[0].AwayScore);
         }
     }
