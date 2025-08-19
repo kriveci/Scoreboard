@@ -19,15 +19,11 @@ namespace Scoreboard.Test
         }
 
         [Fact]
-        public void StartMatch_TeamNameEmpty_ShouldNotAddMatch()
+        public void StartMatch_TeamNameEmpty_ShouldThrowArgumentExcpetion()
         {
             var scoreBoard = new Scoreboard();
 
-            scoreBoard.StartMatch("", "Croatia");
-
-            var summary = scoreBoard.GetSummary();
-
-            Assert.Empty(summary);
+            Assert.Throws<ArgumentException>(() => scoreBoard.StartMatch("", "Croatia"));
         }
 
         [Fact]

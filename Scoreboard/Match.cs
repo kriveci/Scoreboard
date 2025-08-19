@@ -17,6 +17,9 @@ namespace Scoreboard
 
         public Match(string homeTeam, string awayTeam)
         {
+            if (string.IsNullOrWhiteSpace(homeTeam) || string.IsNullOrWhiteSpace(awayTeam))
+                throw new ArgumentException("Team name can't be null or empty.");
+
             HomeTeam = homeTeam;
             AwayTeam = awayTeam;
             StartTime = DateTime.UtcNow;
