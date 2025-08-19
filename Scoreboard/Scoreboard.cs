@@ -8,10 +8,7 @@ namespace Scoreboard
 
         public bool StartMatch(string homeTeam, string awayTeam)
         {
-            if (IsTeamPlaying(homeTeam) || IsTeamPlaying(awayTeam))
-            {
-                return false;
-            }
+            if (IsTeamPlaying(homeTeam) || IsTeamPlaying(awayTeam)) return false;
 
             _matches.Add(new Match(homeTeam, awayTeam));
             return true;
@@ -20,10 +17,7 @@ namespace Scoreboard
         public bool FinishMatch(string homeTeam, string awayTeam)
         {
             var match = FindMatch(homeTeam, awayTeam);
-            if (match == null)
-            {
-                return false;
-            }
+            if (match == null) return false;
 
             _matches.Remove(match);
             return true;
@@ -32,10 +26,7 @@ namespace Scoreboard
         public bool UpdateScore(string homeTeam, string awayTeam, int homeScore, int awayScore)
         {
             var match = FindMatch(homeTeam, awayTeam);
-            if (match == null)
-            {
-                return false;
-            }
+            if (match == null) return false;
 
             match.UpdateScore(homeScore, awayScore);
             return true;
@@ -59,8 +50,8 @@ namespace Scoreboard
 
         private bool IsTeamPlaying(string teamName)
         {
-            return _matches.Any(m => string.Equals(m.HomeTeam, teamName) ||
-                string.Equals(m.AwayTeam, teamName));
+            return _matches.Any(m => (m.HomeTeam.Equals(teamName, StringComparison.OrdinalIgnoreCase)) ||
+                (m.AwayTeam.Equals(teamName, StringComparison.OrdinalIgnoreCase)));
         }
     }
 }
