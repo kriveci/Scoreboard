@@ -82,5 +82,34 @@ namespace Scoreboard.Test
 
             Assert.False(result);
         }
+
+        [Fact]
+        public void GetSummary_ShouldOrderByTotalScoreAndTimeStarted()
+        {
+            var scoreboard = new Scoreboard();
+
+            scoreboard.StartMatch("Mexico", "Canada");
+            scoreboard.UpdateScore("Mexico", "Canada", 0, 5);
+
+            scoreboard.StartMatch("Spain", "Brazil");
+            scoreboard.UpdateScore("Spain", "Brazil", 10, 2);
+
+            scoreboard.StartMatch("Germany", "France");
+            scoreboard.UpdateScore("Germany", "France", 2, 2);
+
+            scoreboard.StartMatch("Uruguay", "Italy");
+            scoreboard.UpdateScore("Uruguay", "Italy", 6, 6);
+
+            scoreboard.StartMatch("Argentina", "Australia");
+            scoreboard.UpdateScore("Argentina", "Australia", 3, 1);
+
+            var summary = scoreboard.GetSummary();
+
+            Assert.Equal("Uruguay", summary[0].HomeTeam);
+            Assert.Equal("Spain", summary[1].HomeTeam);
+            Assert.Equal("Mexico", summary[0].HomeTeam);
+            Assert.Equal("Argentina", summary[0].HomeTeam);
+            Assert.Equal("Germany", summary[0].HomeTeam);
+        }
     }
 }
