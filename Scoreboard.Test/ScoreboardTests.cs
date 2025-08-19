@@ -58,5 +58,18 @@ namespace Scoreboard.Test
                         
             Assert.False(result);
         }
+
+        [Fact]
+        public void FinishMAtch_ExistingMatch_ShouldRemoveMatchFromScoreboard()
+        {
+            var scoreboard = new Scoreboard();
+
+            scoreboard.StartMatch("Slovenia", "Croatia");
+            scoreboard.FinishMatch("Slovenia", "Croatia");
+
+            var summary = scoreboard.GetSummary();
+
+            Assert.Empty(summary);
+        }
     }
 }
