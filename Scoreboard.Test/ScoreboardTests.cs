@@ -27,6 +27,14 @@ namespace Scoreboard.Test
         }
 
         [Fact]
+        public void StartMatch_SameHomeAndAwayTeam_ShouldThrowArgumentExcpetion()
+        {
+            var scoreBoard = new Scoreboard();
+
+            Assert.Throws<ArgumentException>(() => scoreBoard.StartMatch("Croatia", "Croatia"));
+        }
+
+        [Fact]
         public void StartMatch_TeamAlreadyPlaying_ShouldNotAddMatch()
         {
             var scoreBoard = new Scoreboard();
