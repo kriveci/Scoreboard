@@ -20,7 +20,7 @@ namespace Scoreboard
             if (string.IsNullOrWhiteSpace(homeTeam) || string.IsNullOrWhiteSpace(awayTeam))
                 throw new ArgumentException("Team name can't be null or empty.");
 
-            if (homeTeam.Equals(awayTeam))
+            if (homeTeam.Equals(awayTeam, StringComparison.OrdinalIgnoreCase))
                 throw new ArgumentException("Home and away teams must be different.");
 
             HomeTeam = homeTeam;
