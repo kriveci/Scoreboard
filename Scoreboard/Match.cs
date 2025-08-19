@@ -8,11 +8,11 @@ namespace Scoreboard
 {
     public class Match
     {
-        public string HomeTeam { get; set; }
-        public string AwayTeam { get; set; }
-        public int HomeScore { get; set; }
-        public int AwayScore { get; set; }
-        public DateTime StartTime { get; set; }
+        public string HomeTeam { get; }
+        public string AwayTeam { get; }
+        public int HomeScore { get; private set; }
+        public int AwayScore { get; private set; }
+        public DateTime StartTime { get; }
         public int TotalScore => HomeScore + AwayScore;
 
         public Match(string homeTeam, string awayTeam)
