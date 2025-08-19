@@ -11,6 +11,18 @@ namespace Scoreboard
             _matches.Add(new Match(homeTeam, awayTeam));
         }
 
+        public bool FinishMatch(string homeTeam, string awayTeam)
+        {
+            var match = FindMatch(homeTeam, awayTeam);
+            if (match == null)
+            {
+                return false;
+            }
+
+            _matches.Remove(match);
+            return true;
+        }
+
         public bool UpdateScore(string homeTeam, string awayTeam, int homeScore, int awayScore)
         {
             var match = FindMatch(homeTeam, awayTeam);
