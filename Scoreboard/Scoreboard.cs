@@ -32,13 +32,14 @@ namespace Scoreboard
             return true;
         }
 
-        public List<Match> GetSummary()
-        {
-            return _matches
+        //read only to prevent caller to modify list 
+        public IReadOnlyList<Match> GetSummary() =>
+            _matches
                 .OrderByDescending(m => m.TotalScore)
                 .ThenByDescending(m => m.StartTime)
-                .ToList();
-        }
+                .ToList()
+                .AsReadOnly();
+
 
         private Match FindMatch(string homeTeam, string awayTeam)
         {
