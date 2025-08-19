@@ -19,7 +19,19 @@ namespace Scoreboard.Test
         }
 
         [Fact]
-        public void StartMatch_TeamAlreadyPlaying_ShouldNotAddMatchIfOneTeamIsAlreadyPlaying()
+        public void StartMatch_TeamNameEmpty_ShouldNotAddMatch()
+        {
+            var scoreBoard = new Scoreboard();
+
+            scoreBoard.StartMatch("", "Croatia");
+
+            var summary = scoreBoard.GetSummary();
+
+            Assert.Empty(summary);
+        }
+
+        [Fact]
+        public void StartMatch_TeamAlreadyPlaying_ShouldNotAddMatch()
         {
             var scoreBoard = new Scoreboard();
 
