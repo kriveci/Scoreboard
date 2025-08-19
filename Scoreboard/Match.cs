@@ -20,5 +20,13 @@ namespace Scoreboard
             AwayTeam = awayTeam;
             StartTime = DateTime.UtcNow;
         }
+
+        public void UpdateScore(int homeScore, int awayScore)
+        {
+            if (homeScore < 0 || awayScore < 0)
+                throw new ArgumentException("Score can't be negative.");
+            HomeScore = homeScore;
+            AwayScore = awayScore;
+        }
     }
 }
