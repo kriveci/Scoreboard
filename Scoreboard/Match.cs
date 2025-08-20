@@ -8,6 +8,7 @@ namespace Scoreboard
 {
     public class Match
     {
+        public Guid Id { get; }
         public string HomeTeam { get; }
         public string AwayTeam { get; }
         public int HomeScore { get; private set; }
@@ -23,6 +24,7 @@ namespace Scoreboard
             if (homeTeam.Equals(awayTeam, StringComparison.OrdinalIgnoreCase))
                 throw new ArgumentException("Home and away teams must be different.");
 
+            Id = Guid.NewGuid();
             HomeTeam = homeTeam;
             AwayTeam = awayTeam;
             StartTime = DateTime.UtcNow;

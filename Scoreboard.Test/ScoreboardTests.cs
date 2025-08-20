@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace Scoreboard.Test
 {
     public class ScoreboardTests
@@ -7,11 +9,12 @@ namespace Scoreboard.Test
         {
             var scoreBoard = new Scoreboard();
 
-            scoreBoard.StartMatch("Slovenia", "Croatia");
+            var matchId = scoreBoard.StartMatch("Slovenia", "Croatia");
 
             var summary = scoreBoard.GetSummary();
 
             Assert.Single(summary);
+            Assert.Equal(matchId, summary[0].Id);
             Assert.Equal(0, summary[0].HomeScore);
             Assert.Equal(0, summary[0].AwayScore);
             Assert.Equal("Slovenia", summary[0].HomeTeam);
@@ -53,8 +56,8 @@ namespace Scoreboard.Test
         {
             var scoreboard = new Scoreboard();
 
-            scoreboard.StartMatch("Slovenia", "Croatia");
-            scoreboard.UpdateScore("Slovenia", "Croatia", 1, 0);
+            var matchId = scoreboard.StartMatch("Slovenia", "Croatia");
+            if (matchId.HasValue) scoreboard.UpdateScore(matchId.Value, 1, 0);
 
             var summary = scoreboard.GetSummary();
 
@@ -68,8 +71,8 @@ namespace Scoreboard.Test
         {
             var scoreboard = new Scoreboard();
 
-            scoreboard.StartMatch("Slovenia", "Croatia");
-            scoreboard.UpdateScore("Italy", "Austria", 1, 0);
+            var matchId = scoreboard.StartMatch("Slovenia", "Croatia");
+            scoreboard.UpdateScore(Guid.NewGuid(), 1, 0);
 
             var summary = scoreboard.GetSummary();
 
@@ -83,8 +86,8 @@ namespace Scoreboard.Test
         {
             var scoreboard = new Scoreboard();
 
-            scoreboard.StartMatch("Slovenia", "Croatia");
-            bool result = scoreboard.UpdateScore("Italy", "Austria", 1, 0);
+            var matchId = scoreboard.StartMatch("Slovenia", "Croatia");
+            bool result = scoreboard.UpdateScore(Guid.NewGuid(), 1, 0);
                         
             Assert.False(result);
         }
@@ -94,8 +97,8 @@ namespace Scoreboard.Test
         {
             var scoreboard = new Scoreboard();
 
-            scoreboard.StartMatch("Slovenia", "Croatia");
-            scoreboard.FinishMatch("Slovenia", "Croatia");
+            var matchId = scoreboard.StartMatch("Slovenia", "Croatia");
+            if (matchId.HasValue) scoreboard.FinishMatch(matchId.Value);
 
             var summary = scoreboard.GetSummary();
 
@@ -107,8 +110,8 @@ namespace Scoreboard.Test
         {
             var scoreboard = new Scoreboard();
 
-            scoreboard.StartMatch("Slovenia", "Croatia");
-            var result = scoreboard.FinishMatch("Austria", "Croatia");
+            var matchId = scoreboard.StartMatch("Slovenia", "Croatia");
+            var result = scoreboard.FinishMatch(Guid.NewGuid());
 
             Assert.False(result);
         }
@@ -118,20 +121,20 @@ namespace Scoreboard.Test
         {
             var scoreboard = new Scoreboard();
 
-            scoreboard.StartMatch("Mexico", "Canada");
-            scoreboard.UpdateScore("Mexico", "Canada", 0, 5);
+            var match1 = scoreboard.StartMatch("Mexico", "Canada");
+            if (match1.HasValue) scoreboard.UpdateScore(match1.Value, 0, 5);
 
-            scoreboard.StartMatch("Spain", "Brazil");
-            scoreboard.UpdateScore("Spain", "Brazil", 10, 2);
+            var match2 = scoreboard.StartMatch("Spain", "Brazil");
+            if (match2.HasValue) scoreboard.UpdateScore(match2.Value, 10, 2);
 
-            scoreboard.StartMatch("Germany", "France");
-            scoreboard.UpdateScore("Germany", "France", 2, 2);
+            var match3 = scoreboard.StartMatch("Germany", "France");
+            if (match3.HasValue) scoreboard.UpdateScore(match3.Value, 2, 2);
 
-            scoreboard.StartMatch("Uruguay", "Italy");
-            scoreboard.UpdateScore("Uruguay", "Italy", 6, 6);
+            var match4 = scoreboard.StartMatch("Uruguay", "Italy");
+            if (match4.HasValue) scoreboard.UpdateScore(match4.Value, 6, 6);
 
-            scoreboard.StartMatch("Argentina", "Australia");
-            scoreboard.UpdateScore("Argentina", "Australia", 3, 1);
+            var match5 = scoreboard.StartMatch("Argentina", "Australia");
+            if (match5.HasValue) scoreboard.UpdateScore(match5.Value, 3, 1);
 
             var summary = scoreboard.GetSummary();
 

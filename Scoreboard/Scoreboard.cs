@@ -6,26 +6,27 @@ namespace Scoreboard
     {
         private List<Match> _matches = new();
 
-        public bool StartMatch(string homeTeam, string awayTeam)
+        public Guid? StartMatch(string homeTeam, string awayTeam)
         {
-            if (IsTeamPlaying(homeTeam) || IsTeamPlaying(awayTeam)) return false;
+            if (IsTeamPlaying(homeTeam) || IsTeamPlaying(awayTeam)) return null;
 
-            _matches.Add(new Match(homeTeam, awayTeam));
-            return true;
+            var match = new Match(homeTeam, awayTeam);
+            _matches.Add(match);
+            return match.Id;
         }
 
-        public bool FinishMatch(string homeTeam, string awayTeam)
+        public bool FinishMatch(Guid matchId)
         {
-            var match = FindMatch(homeTeam, awayTeam);
+            var match = FindMatch(matchId);
             if (match == null) return false;
 
             _matches.Remove(match);
             return true;
         }
 
-        public bool UpdateScore(string homeTeam, string awayTeam, int homeScore, int awayScore)
+        public bool UpdateScore(Guid matchId, int homeScore, int awayScore)
         {
-            var match = FindMatch(homeTeam, awayTeam);
+            var match = FindMatch(matchId);
             if (match == null) return false;
 
             match.UpdateScore(homeScore, awayScore);
@@ -41,10 +42,9 @@ namespace Scoreboard
                 .AsReadOnly();
 
 
-        private Match FindMatch(string homeTeam, string awayTeam)
+        private Match? FindMatch(Guid matchId)
         {
-            var match = _matches.FirstOrDefault(m =>
-                m.HomeTeam == homeTeam && m.AwayTeam == awayTeam);
+            var match = _matches.FirstOrDefault(m => m.Id == matchId);
 
             return match;
         }
