@@ -4,7 +4,7 @@ namespace Scoreboard
 {
     public class Scoreboard
     {
-        private List<Match> _matches = new();
+        private readonly List<Match> _matches = new();
 
         public Guid? StartMatch(string homeTeam, string awayTeam)
         {
