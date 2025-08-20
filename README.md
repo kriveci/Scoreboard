@@ -27,6 +27,8 @@ dotnet build
 dotnet test
 ```
 
+Or use VisualStudio: Right click on Scoreboard.Test project and then click Run Tests
+
 # Usage
 
 ```csharp
@@ -53,4 +55,5 @@ if (matchId.HasValue) scoreboard.FinishMatch(matchId.Value);
 ```
 
 # Notes
+Unit tests are written using xUnit.
 For sorting and searching in list LINQ was used, because it is cleaner and more readable. It's slightly lesser performance has no impact on a data this small as world cup live matches
