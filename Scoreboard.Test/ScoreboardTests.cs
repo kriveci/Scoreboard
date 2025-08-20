@@ -52,6 +52,20 @@ namespace Scoreboard.Test
         }
 
         [Fact]
+        public void StartMatch_TeamAlreadyPlaying_ShouldreturnNull()
+        {
+            var scoreBoard = new Scoreboard();
+
+            scoreBoard.StartMatch("Slovenia", "Croatia");
+            var matchId = scoreBoard.StartMatch("Slovenia", "Austria");
+
+            var summary = scoreBoard.GetSummary();
+
+            //summary should be null
+            Assert.Null(matchId);
+        }
+
+        [Fact]
         public void UpdateScore_ExistingMatch_ShouldUpdateMatchScore()
         {
             var scoreboard = new Scoreboard();
